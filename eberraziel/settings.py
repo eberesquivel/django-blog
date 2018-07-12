@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'y92&2_=xi!6*$z^p729&w4g5=j%!l_3!ooz(dc-#_s=_si9m#g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['eberesquivel.pythonanywhere.com']
 
