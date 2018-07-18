@@ -5,6 +5,4 @@ urlpatterns = [
     url(r'^$', views.post_list),
     url(r'^post/(?P<pk>[0-9]+)/$', views.post_detalle, name='post_detalle'),
     url(r'^post/nuevo/$', views.post_new, name='nuevo_post'),
-    url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_editar, name='post_editar'),
-
 ]
