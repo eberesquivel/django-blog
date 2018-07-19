@@ -25,7 +25,7 @@ SECRET_KEY = 'y92&2_=xi!6*$z^p729&w4g5=j%!l_3!ooz(dc-#_s=_si9m#g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eberesquivel.pythonanywhere.com']
+# ALLOWED_HOSTS = ['eberesquivel.pythonanywhere.com']
 
 
 # Application definition
@@ -122,3 +122,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+LOGIN_REDIRECT_URL = '/'

@@ -5,19 +5,22 @@ from django.shortcuts import render, get_object_or_404
 from django import forms
 from .forms import PostFormulario
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+@login_required
 def post_lista(request):
     posts = Post.objects.filter(fecha_creacion__lte=timezone.now()).order_by('fecha_creacion')
     return render(request, 'blog/post_list.html', {'posts':posts})
-
+@login_required
 def post_detalle(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'blog/post_detalle.html', {'post': post})
-
+@login_required
 def post_new(request):
         form = PostFormulario()
         return render(request, 'blog/post_editar.html', {'form': form})
-
+@login_required
 def post_new(request):
         if request.method == "POST":
             form = PostFormulario(request.POST)
@@ -30,7 +33,7 @@ def post_new(request):
         else:
             form = PostFormulario()
         return render(request, 'blog/post_editar.html', {'form': form})
-
+@login_required
 def post_editar(request, pk):
         post = get_object_or_404(Post, pk=pk)
         if request.method == "POST":
@@ -43,16 +46,16 @@ def post_editar(request, pk):
         else:
             form = PostFormulario(instance=post)
         return render(request, 'blog/post_editar.html', {'form': form})
-
+@login_required
 def post_draft_list(request):
     posts = Post.objects.filter(fecha_publicacion__isnull=True).order_by('fecha_creacion')
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
-
+@login_required
 def post_publicar(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publicar()
     return redirect('post_detalle', pk=pk)
-
+@login_required
 def post_remover(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
