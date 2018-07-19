@@ -6,7 +6,7 @@ from django import forms
 from .forms import PostFormulario
 from django.shortcuts import redirect
 # Create your views here.
-def post_list(request):
+def post_lista(request):
     posts = Post.objects.filter(fecha_creacion__lte=timezone.now()).order_by('fecha_creacion')
     return render(request, 'blog/post_list.html', {'posts':posts})
 
@@ -24,7 +24,7 @@ def post_new(request):
             if form.is_valid():
                 post = form.save(commit=False)
                 post.autor = request.user
-                post.fecha_publicacion = timezone.now()
+                # post.fecha_publicacion = timezone.now()
                 post.save()
                 return redirect('post_detalle', pk=post.pk)
         else:
@@ -43,3 +43,17 @@ def post_editar(request, pk):
         else:
             form = PostFormulario(instance=post)
         return render(request, 'blog/post_editar.html', {'form': form})
+
+def post_draft_list(request):
+    posts = Post.objects.filter(fecha_publicacion__isnull=True).order_by('fecha_creacion')
+    return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
+def post_publicar(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.publicar()
+    return redirect('post_detalle', pk=pk)
+
+def post_remover(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('post_lista')
